@@ -1,0 +1,18 @@
+machine:
+  services:
+    - docker
+  environment:
+    VAGRANT_DEFAULT_PROVIDER: lxc
+
+dependencies:
+  cache_directories:
+    - ~/.vagrant.d
+  pre:
+    - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+    - sudo dpkg -i vagrant_1.8.4_x86_64.deb
+    - vagrant plugin install vagrant-lxc --plugin-version 1.2.1
+    - sudo vagrant lxc sudoers
+
+test:
+  override:
+    - vagrant up --provider=lxc
